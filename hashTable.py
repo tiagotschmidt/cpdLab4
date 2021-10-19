@@ -1,46 +1,47 @@
-def hashing(keyString,m):
-    value = getValue(keyString)
-    return (value % m)
+# Trabalho Laboratório 4 - Classificação e Pesquisa de Dados - Gabriel Castelo Branco Gomes e Tiago Torres Schmidt.
+def hashing(keyString,m):#Função de hashing. Recebe a string, com um parâmetro M de valor da tabela.
+    value = getValue(keyString)#Chama a função getValue.
+    return (value % m)#Retorna o modulo de valor por m
 
-def insert(Hashtable, m, keyString):      
-    value = hashing(keyString,m)
-    Hashtable[value].append(keyString)
+def insert(Hashtable, m, keyString):#Função insert. Insere a String na Hashtable de tamanho M.   
+    value = hashing(keyString,m)#Descobre o índice a ser usado na tabela.
+    Hashtable[value].append(keyString)#Insere a string na índice.
     
-def getValue(string):
-    values = [ord(character) for character in string]
+def getValue(string):#Função getValue. Recebe um string com finalidade de gerar um valor.
+    values = [ord(character) for character in string]#Cria um vetor com os valores de cada caractere da palavra.
     totalValue = 0
-    for value in values:
+    for value in values:#Soma todos os valores dos caracteres da string.
         totalValue = totalValue + value
-    return totalValue
+    return totalValue#Retorna o valor.
     
-def search(string,HashTable,m):
-    returnValue = -1;
-    searchKey = hashing(string,m)
-    for j in range(len(HashTable[searchKey])):        
-        if(string == HashTable[searchKey][j]):
+def search(string,HashTable,m):#Função search. Realiza busca através do valor de hash.
+    returnValue = -1;#Retorno em caso de erro.
+    searchKey = hashing(string,m)#Busca a chave da palavra.
+    for j in range(len(HashTable[searchKey])):#Busca na lista encadeada da chave encontrada.
+        if(string == HashTable[searchKey][j]):#Em caso de encontrar, retorna
             returnValue = 1 + j        
     return returnValue
             
-def main():
-    m = 503
+def main():#Função main.
+    m = 503#Primeiro valor m a ser experimentado.
     HashTable503 = [[]for _ in range(m)]
 
-    input1 = open("nomes_10000.txt", "r")
+    input1 = open("nomes_10000.txt", "r")#Abre o arquivo de base.
     inputs1 = input1.readlines()
     for line in inputs1:
         if(line[-1] == "\n"):
             lineA = line[:-1]  
         else:
             lineA = line  
-        insert(HashTable503,m,lineA)
+        insert(HashTable503,m,lineA)#Insere na tabela.
         
-    input2 = open("consultas.txt", "r")
+    input2 = open("consultas.txt", "r")#Abre os arquivos de escrita e consulta.
     output1 = open("experimento503.txt", "w")
     inputs2 = input2.readlines()
-    totalSearches = 0;
+    totalSearches = 0;#Variáveis de estatística.
     totalValue = 0;
     maxValue = 0;
-    for line in inputs2:    
+    for line in inputs2:#Realiza a consulta e a contagem da estatística.
         if(line[-1] == "\n"):
             lineA = line[:-1]  
         else:
@@ -51,12 +52,12 @@ def main():
         totalSearches = totalSearches + 1  
         if(searchValue > maxValue):
             maxValue = searchValue
-        output1.write(f"{lineA} #{str(searchValue)}\n")       
-    averageSearch = totalValue / totalSearches
+        output1.write(f"{lineA} #{str(searchValue)}\n")   
+    averageSearch = totalValue / totalSearches#Escreve o valor na saída.
     output1.write(f"MÉDIA #{averageSearch}\n")   
     output1.write(f"MÁXIMO #{maxValue}\n")  
 
-    m = 2503
+    m = 2503#Segue o padrão do primeiro valor M.
     HashTable2503 = [[]for _ in range(m)]
 
     input1 = open("nomes_10000.txt", "r")
@@ -90,7 +91,7 @@ def main():
     output1.write(f"MÉDIA #{averageSearch}\n")  
     output1.write(f"MÁXIMO #{maxValue}\n")
 
-    m = 5003
+    m = 5003#Segue o padrão do primeiro valor M.
     HashTable5003 = [[]for _ in range(m)]
 
     input1 = open("nomes_10000.txt", "r")
@@ -124,7 +125,7 @@ def main():
     output1.write(f"MÉDIA #{averageSearch}\n")  
     output1.write(f"MÁXIMO #{maxValue}\n")  
 
-    m = 7507    
+    m = 7507#Segue o padrão do primeiro valor M.  
     HashTable7507 = [[]for _ in range(m)]
 
     input1 = open("nomes_10000.txt", "r")
