@@ -12,12 +12,12 @@ def display_hash(hashTable,m):
 # Creating Hashtable as 
 # a nested list.
 
-def Hashing(keyString,m):
+def hashing(keyString,m):
     value = getValue(keyString)
     return (value % m)
 
 def insert(Hashtable, m, keyString):      
-    value = Hashing(keyString,m)
+    value = hashing(keyString,m)
     Hashtable[value].append(keyString)
     
 def getValue(string):
@@ -26,16 +26,39 @@ def getValue(string):
     for value in values:
         totalValue = totalValue + value
     return totalValue
-
-m = int(input("Digite um número M:"))
+    
+def search(string,HashTable):
+    returnValue = 0;
+    searchKey = hashing(string,m)    
+    for j in range(len(HashTable[searchKey])):        
+        if(string == HashTable[searchKey][j]):
+            returnValue = 1 + j        
+    return returnValue
+            
+#m = int(input("Digite um número M:"))
+m = 503
 
 HashTable = [[]for _ in range(m)]
 
-insert(HashTable, m, 'Allahabad')
-insert(HashTable, m, 'Mumbai')
-insert(HashTable, m, 'Mathura')
-insert(HashTable, m, 'Delhi')
-insert(HashTable, m, 'Punjab')
-insert(HashTable, m, 'Noida')
+input1 = open("nomes_10000.txt", "r")
+inputs1 = input1.readlines()
+for line in inputs1:
+    if(line[-1] == "\n"):
+        lineA = line[:-1]  
+    else:
+        lineA = line
+    insert(HashTable,m,lineA)
+    
+input2 = open("consultas.txt", "r")
+output1 = open("saida1.txt", "w")
+inputs2 = input2.readlines()
+for line in inputs2:    
+    if(line[-1] == "\n"):
+        lineA = line[:-1]  
+    else:
+        lineA = line
+    print(lineA)
+    searchValue = search(lineA,HashTable)
+    output1.write(f"{lineA} #{str(searchValue)}\n")    
 
-display_hash(HashTable,m)
+#display_hash(HashTable,m)
