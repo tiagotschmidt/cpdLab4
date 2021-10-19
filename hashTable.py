@@ -1,17 +1,3 @@
-def display_hash(hashTable,m):
-      
-    for i in range(m):
-        print(i, end = " ")
-          
-        for j in hashTable[i]:
-            print("-->", end = " ")
-            print(j, end = " ")
-              
-        print()
-  
-# Creating Hashtable as 
-# a nested list.
-
 def hashing(keyString,m):
     value = getValue(keyString)
     return (value % m)
@@ -29,7 +15,7 @@ def getValue(string):
     
 def search(string,HashTable,m):
     returnValue = -1;
-    searchKey = hashing(string,m)    
+    searchKey = hashing(string,m)
     for j in range(len(HashTable[searchKey])):        
         if(string == HashTable[searchKey][j]):
             returnValue = 1 + j        
@@ -45,7 +31,7 @@ def main():
         if(line[-1] == "\n"):
             lineA = line[:-1]  
         else:
-            lineA = line
+            lineA = line  
         insert(HashTable503,m,lineA)
         
     input2 = open("consultas.txt", "r")
@@ -53,6 +39,7 @@ def main():
     inputs2 = input2.readlines()
     totalSearches = 0;
     totalValue = 0;
+    maxValue = 0;
     for line in inputs2:    
         if(line[-1] == "\n"):
             lineA = line[:-1]  
@@ -61,11 +48,13 @@ def main():
         searchValue = search(lineA,HashTable503,m)
         if(searchValue > 0):
             totalValue = totalValue + searchValue    
-        totalSearches = totalSearches + 1     
+        totalSearches = totalSearches + 1  
+        if(searchValue > maxValue):
+            maxValue = searchValue
         output1.write(f"{lineA} #{str(searchValue)}\n")       
     averageSearch = totalValue / totalSearches
     output1.write(f"MÉDIA #{averageSearch}\n")   
-    output1.write(f"TOTAL DE CONSULTAS #{totalValue}\n")  
+    output1.write(f"MÁXIMO #{maxValue}\n")  
 
     m = 2503
     HashTable2503 = [[]for _ in range(m)]
@@ -84,19 +73,22 @@ def main():
     inputs2 = input2.readlines()
     totalSearches = 0;
     totalValue = 0;
+    maxValue = 0;
     for line in inputs2:    
         if(line[-1] == "\n"):
             lineA = line[:-1]  
         else:
             lineA = line
+        searchValue = search(lineA,HashTable2503,m)
         if(searchValue > 0):
             totalValue = totalValue + searchValue    
         totalSearches = totalSearches + 1   
-        searchValue = search(lineA,HashTable2503,m)
+        if(searchValue > maxValue):
+            maxValue = searchValue        
         output1.write(f"{lineA} #{str(searchValue)}\n")   
     averageSearch = totalValue / totalSearches
     output1.write(f"MÉDIA #{averageSearch}\n")  
-    output1.write(f"TOTAL DE CONSULTAS #{totalValue}\n")  
+    output1.write(f"MÁXIMO #{maxValue}\n")
 
     m = 5003
     HashTable5003 = [[]for _ in range(m)]
@@ -115,19 +107,22 @@ def main():
     inputs2 = input2.readlines()
     totalSearches = 0;
     totalValue = 0;
+    maxValue = 0;
     for line in inputs2:    
         if(line[-1] == "\n"):
             lineA = line[:-1]  
         else:
             lineA = line    
+        searchValue = search(lineA,HashTable5003,m)
         if(searchValue > 0):
             totalValue = totalValue + searchValue    
         totalSearches = totalSearches + 1   
-        searchValue = search(lineA,HashTable5003,m)
+        if(searchValue > maxValue):
+            maxValue = searchValue        
         output1.write(f"{lineA} #{str(searchValue)}\n")   
     averageSearch = totalValue / totalSearches
     output1.write(f"MÉDIA #{averageSearch}\n")  
-    output1.write(f"TOTAL DE CONSULTAS #{totalValue}\n")  
+    output1.write(f"MÁXIMO #{maxValue}\n")  
 
     m = 7507    
     HashTable7507 = [[]for _ in range(m)]
@@ -145,21 +140,23 @@ def main():
     output1 = open("experimento7507.txt", "w")
     totalSearches = 0;
     totalValue = 0;
+    maxValue = 0;
     inputs2 = input2.readlines()
     for line in inputs2:    
         if(line[-1] == "\n"):
             lineA = line[:-1]  
         else:
-            lineA = line    
+            lineA = line   
+        searchValue = search(lineA,HashTable7507,m) 
         if(searchValue > 0):
             totalValue = totalValue + searchValue    
         totalSearches = totalSearches + 1   
-        searchValue = search(lineA,HashTable7507,m)
+        if(searchValue > maxValue):
+            maxValue = searchValue          
         output1.write(f"{lineA} #{str(searchValue)}\n")       
     averageSearch = totalValue / totalSearches
     output1.write(f"MÉDIA #{averageSearch}\n") 
-    output1.write(f"TOTAL DE CONSULTAS #{totalValue}\n")  
-
+    output1.write(f"MÁXIMO #{maxValue}\n") 
 
 if __name__ == "__main__":
     main()
